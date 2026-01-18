@@ -2,126 +2,119 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Tally Form Embed</title>
-    <meta name="description" content="Embed form Tally.so untuk website Anda">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📋</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tally.so Embed Generator</title>
     <style>
-        /* Reset dan Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
-        :root {
-            --primary-color: #3a86ff;
-            --primary-dark: #2667cc;
-            --text-color: #333;
-            --light-bg: #f8f9fa;
-            --border-color: #e0e0e0;
-            --success-color: #10b981;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: var(--text-color);
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
-        /* Container Utama */
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            padding: 20px;
-        }
-        
-        /* Panel Preview */
-        .preview-panel {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .preview-panel h1 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            border-bottom: 3px solid var(--light-bg);
-            padding-bottom: 10px;
-        }
-        
-        .form-container {
-            flex: 1;
-            border: 2px dashed var(--border-color);
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            background: var(--light-bg);
+            gap: 0;
             min-height: 600px;
         }
         
-        .form-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-        
-        /* Panel Kode */
-        .code-panel {
-            background: white;
-            border-radius: 16px;
+        .preview-section {
             padding: 30px;
-            box-shadow: var(--shadow);
+            background: #f8fafc;
+            border-right: 1px solid #e2e8f0;
         }
         
-        .code-panel h2 {
-            color: var(--primary-color);
+        .preview-section h2 {
+            color: #1e293b;
             margin-bottom: 20px;
             font-size: 1.5rem;
         }
         
-        /* Tab Navigasi */
-        .tabs {
+        .preview-box {
+            background: white;
+            border: 2px dashed #cbd5e1;
+            border-radius: 10px;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .preview-box iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .code-section {
+            padding: 30px;
+            background: white;
+        }
+        
+        .code-section h2 {
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .code-tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
-            border-bottom: 2px solid var(--light-bg);
-            padding-bottom: 10px;
         }
         
         .tab-btn {
             padding: 10px 20px;
-            background: none;
+            background: #f1f5f9;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 500;
-            color: #666;
-            transition: all 0.3s ease;
+            color: #64748b;
+            transition: all 0.3s;
         }
         
         .tab-btn.active {
-            background: var(--primary-color);
+            background: #4f46e5;
             color: white;
         }
         
-        .tab-btn:hover:not(.active) {
-            background: var(--light-bg);
-        }
-        
-        /* Tab Content */
         .tab-content {
             display: none;
         }
@@ -130,29 +123,28 @@
             display: block;
         }
         
-        /* Code Display */
-        .code-display {
-            position: relative;
-            background: #1e1e1e;
-            border-radius: 8px;
+        .code-box {
+            background: #1e293b;
+            border-radius: 10px;
             padding: 20px;
-            overflow-x: auto;
+            position: relative;
             margin-bottom: 20px;
         }
         
         pre {
-            color: #d4d4d4;
-            font-family: 'Consolas', 'Monaco', monospace;
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
             font-size: 14px;
-            line-height: 1.5;
-            margin: 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
         
         .copy-btn {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--primary-color);
+            top: 15px;
+            right: 15px;
+            background: #4f46e5;
             color: white;
             border: none;
             padding: 8px 16px;
@@ -163,215 +155,181 @@
         }
         
         .copy-btn:hover {
-            background: var(--primary-dark);
+            background: #4338ca;
         }
         
         .copy-btn.copied {
-            background: var(--success-color);
+            background: #10b981;
         }
         
-        /* Configuration Panel */
-        .config-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .config-box {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
         }
         
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
+        .config-box h3 {
+            color: #1e293b;
+            margin-bottom: 15px;
         }
         
-        .form-group label {
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #475569;
             font-weight: 500;
-            color: #555;
         }
         
-        .form-group input,
-        .form-group select {
-            padding: 10px 12px;
-            border: 2px solid var(--border-color);
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
             border-radius: 8px;
             font-size: 14px;
-            transition: border-color 0.3s;
         }
         
-        .form-group input:focus,
-        .form-group select:focus {
+        .input-group input:focus {
             outline: none;
-            border-color: var(--primary-color);
+            border-color: #4f46e5;
         }
         
         .apply-btn {
-            background: var(--primary-color);
+            width: 100%;
+            padding: 12px;
+            background: #4f46e5;
             color: white;
             border: none;
-            padding: 12px 24px;
             border-radius: 8px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.3s;
-            margin-top: 10px;
         }
         
         .apply-btn:hover {
-            background: var(--primary-dark);
+            background: #4338ca;
         }
         
-        /* Instructions */
         .instructions {
             background: #f0f9ff;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 30px;
-            border-left: 4px solid var(--primary-color);
+            border-left: 4px solid #0ea5e9;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 8px 8px 0;
         }
         
-        .instructions h3 {
-            color: var(--primary-color);
+        .instructions h4 {
+            color: #0369a1;
             margin-bottom: 10px;
         }
         
         .instructions ol {
             margin-left: 20px;
+            color: #475569;
         }
         
         .instructions li {
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
         
-        .instructions code {
-            background: #e9ecef;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: monospace;
-        }
-        
-        /* Responsive */
-        @media (max-width: 900px) {
-            .container {
+        @media (max-width: 768px) {
+            .content {
                 grid-template-columns: 1fr;
-                gap: 20px;
             }
             
-            .preview-panel,
-            .code-panel {
-                padding: 20px;
-            }
-        }
-        
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            
-            .container {
-                padding: 10px;
+            .preview-section {
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Panel Preview -->
-        <div class="preview-panel">
-            <h1>🎯 Preview Form Tally</h1>
-            <div class="form-container">
-                <iframe 
-                    id="tallyFrame"
-                    data-tally-src="https://tally.so/r/wkKL5r?transparentBackground=1"
-                    width="100%" 
-                    height="100%" 
-                    frameborder="0" 
-                    title="Contact Form">
-                </iframe>
-            </div>
+        <div class="header">
+            <h1>📋 Tally.so Embed Generator</h1>
+            <p>Generate embed code for your Tally forms</p>
         </div>
         
-        <!-- Panel Kode & Konfigurasi -->
-        <div class="code-panel">
-            <h2>⚙️ Kustomisasi & Embed Code</h2>
-            
-            <!-- Tabs -->
-            <div class="tabs">
-                <button class="tab-btn active" data-tab="code">Kode Embed</button>
-                <button class="tab-btn" data-tab="config">Konfigurasi</button>
+        <div class="content">
+            <div class="preview-section">
+                <h2>Preview</h2>
+                <div class="preview-box">
+                    <iframe 
+                        id="previewFrame"
+                        data-tally-src="https://tally.so/r/wkKL5r?transparentBackground=1"
+                        title="Form Preview"
+                        loading="lazy">
+                    </iframe>
+                </div>
             </div>
             
-            <!-- Tab: Kode Embed -->
-            <div class="tab-content active" id="code-tab">
-                <p style="margin-bottom: 15px; color: #666;">
-                    Salin kode di bawah ini untuk embed form ke website Anda:
-                </p>
+            <div class="code-section">
+                <h2>Embed Code</h2>
                 
-                <div class="code-display">
-                    <button class="copy-btn" data-target="embed-code">Salin Kode</button>
-                    <pre id="embed-code"><code>&lt;!DOCTYPE html&gt;
+                <div class="code-tabs">
+                    <button class="tab-btn active" onclick="showTab('full')">Full Code</button>
+                    <button class="tab-btn" onclick="showTab('minimal')">Minimal Code</button>
+                </div>
+                
+                <div id="full-tab" class="tab-content active">
+                    <div class="code-box">
+                        <button class="copy-btn" onclick="copyCode('full-code')">Copy Code</button>
+                        <pre id="full-code"><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="id"&gt;
 &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;Form Kontak&lt;/title&gt;
+    &lt;title&gt;Contact Form&lt;/title&gt;
     &lt;script async src="https://tally.so/widgets/embed.js"&gt;&lt;/script&gt;
     &lt;style&gt;
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f8f9fa;
+            background: #f8fafc;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-        
-        .form-wrapper {
+        .form-container {
             width: 100%;
-            height: 100vh;
             max-width: 800px;
-            margin: 0 auto;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            height: 90vh;
+            background: white;
             border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             overflow: hidden;
         }
-        
         iframe {
             width: 100%;
             height: 100%;
             border: none;
-            display: block;
         }
     &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-    &lt;div class="form-wrapper"&gt;
+    &lt;div class="form-container"&gt;
         &lt;iframe 
-            data-tally-src="https://tally.so/r/wkKL5r?transparentBackground=1" 
-            width="100%" 
-            height="100%" 
-            frameborder="0" 
-            marginheight="0" 
-            marginwidth="0" 
+            data-tally-src="https://tally.so/r/wkKL5r?transparentBackground=1"
             title="Contact Form"&gt;
         &lt;/iframe&gt;
     &lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+                    </div>
                 </div>
                 
-                <div class="code-display">
-                    <button class="copy-btn" data-target="minimal-code">Salin Kode Minimal</button>
-                    <pre id="minimal-code"><code>&lt;!DOCTYPE html&gt;
+                <div id="minimal-tab" class="tab-content">
+                    <div class="code-box">
+                        <button class="copy-btn" onclick="copyCode('minimal-code')">Copy Code</button>
+                        <pre id="minimal-code"><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
@@ -385,209 +343,159 @@
 &lt;body&gt;
     &lt;iframe 
         data-tally-src="https://tally.so/r/wkKL5r?transparentBackground=1"
-        width="100%" 
-        height="100%" 
-        frameborder="0" 
         title="Contact Form"&gt;
     &lt;/iframe&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-                </div>
-            </div>
-            
-            <!-- Tab: Konfigurasi -->
-            <div class="tab-content" id="config-tab">
-                <form class="config-form" id="configForm">
-                    <div class="form-group">
-                        <label for="formUrl">URL Form Tally:</label>
-                        <input 
-                            type="url" 
-                            id="formUrl" 
-                            value="https://tally.so/r/wkKL5r"
-                            placeholder="https://tally.so/r/your-form-id">
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="formTitle">Judul Form:</label>
+                </div>
+                
+                <div class="config-box">
+                    <h3>Customize</h3>
+                    <div class="input-group">
+                        <label for="tallyUrl">Your Tally Form URL:</label>
                         <input 
                             type="text" 
-                            id="formTitle" 
-                            value="Contact Form"
-                            placeholder="Judul untuk form Anda">
+                            id="tallyUrl" 
+                            value="https://tally.so/r/wkKL5r"
+                            placeholder="https://tally.so/r/YOUR_FORM_ID">
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="bgColor">Warna Latar Belakang:</label>
-                        <input 
-                            type="color" 
-                            id="bgColor" 
-                            value="#f8f9fa">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="transparent">Transparan:</label>
-                        <select id="transparent">
-                            <option value="1" selected>Ya</option>
-                            <option value="0">Tidak</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit" class="apply-btn">Terapkan Perubahan</button>
-                </form>
-            </div>
-            
-            <!-- Instruksi -->
-            <div class="instructions">
-                <h3>📚 Cara Menggunakan:</h3>
-                <ol>
-                    <li>Salin kode embed yang diinginkan</li>
-                    <li>Tempelkan di file HTML Anda</li>
-                    <li>Ubah URL Tally dengan form Anda sendiri</li>
-                    <li>Deploy ke GitHub Pages untuk mendapatkan link</li>
-                </ol>
-                <p style="margin-top: 10px;">
-                    <strong>Tips:</strong> Ganti <code>wkKL5r</code> dengan ID form Tally Anda sendiri
-                </p>
+                    <button class="apply-btn" onclick="updateForm()">Update Form</button>
+                </div>
+                
+                <div class="instructions">
+                    <h4>How to Use:</h4>
+                    <ol>
+                        <li>Copy the embed code above</li>
+                        <li>Paste into your HTML file</li>
+                        <li>Replace the Tally URL with your own</li>
+                        <li>Upload to GitHub Pages for a live link</li>
+                    </ol>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Toggle Tabs
-        document.querySelectorAll('.tab-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all tabs
-                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-                
-                // Add active class to clicked tab
-                button.classList.add('active');
-                const tabId = button.getAttribute('data-tab') + '-tab';
-                document.getElementById(tabId).classList.add('active');
-            });
-        });
+        // Load Tally embed script
+        (function() {
+            var script = document.createElement('script');
+            script.src = 'https://tally.so/widgets/embed.js';
+            script.async = true;
+            document.head.appendChild(script);
+        })();
         
-        // Copy Code Functionality
-        document.querySelectorAll('.copy-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const targetId = button.getAttribute('data-target');
-                const codeElement = document.getElementById(targetId);
-                const codeText = codeElement.textContent;
-                
-                navigator.clipboard.writeText(codeText).then(() => {
-                    // Show success feedback
-                    const originalText = button.textContent;
-                    button.textContent = '✓ Tersalin!';
-                    button.classList.add('copied');
-                    
-                    setTimeout(() => {
-                        button.textContent = originalText;
-                        button.classList.remove('copied');
-                    }, 2000);
-                }).catch(err => {
-                    console.error('Failed to copy:', err);
-                    alert('Gagal menyalin kode. Silakan salin manual.');
-                });
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
             });
-        });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
         
-        // Configuration Form
-        document.getElementById('configForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Copy code function
+        function copyCode(elementId) {
+            const codeElement = document.getElementById(elementId);
+            const text = codeElement.textContent;
             
-            // Get form values
-            const formUrl = document.getElementById('formUrl').value;
-            const formTitle = document.getElementById('formTitle').value;
-            const bgColor = document.getElementById('bgColor').value;
-            const transparent = document.getElementById('transparent').value;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                alert('Failed to copy code. Please select and copy manually.');
+            });
+        }
+        
+        // Update form URL
+        function updateForm() {
+            const urlInput = document.getElementById('tallyUrl');
+            const newUrl = urlInput.value.trim();
             
-            // Update iframe
-            const iframe = document.getElementById('tallyFrame');
-            let newUrl = formUrl;
-            
-            // Add parameters if needed
-            if (!newUrl.includes('?')) {
-                newUrl += '?';
-            } else {
-                newUrl += '&';
+            if (!newUrl) {
+                alert('Please enter a valid Tally form URL');
+                return;
             }
             
-            newUrl += `transparentBackground=${transparent}`;
+            const iframe = document.getElementById('previewFrame');
+            let finalUrl = newUrl;
             
-            iframe.setAttribute('data-tally-src', newUrl);
-            iframe.setAttribute('title', formTitle);
+            // Ensure transparentBackground parameter
+            if (!finalUrl.includes('?')) {
+                finalUrl += '?transparentBackground=1';
+            } else if (!finalUrl.includes('transparentBackground')) {
+                finalUrl += '&transparentBackground=1';
+            }
             
-            // Update background
-            document.querySelector('.form-container').style.backgroundColor = bgColor;
-            
-            // Reload iframe to apply changes
-            iframe.src = iframe.src;
+            // Update iframe
+            iframe.setAttribute('data-tally-src', finalUrl);
             
             // Update code snippets
-            updateCodeSnippets(formUrl, formTitle, bgColor, transparent);
+            updateCodeSnippets(finalUrl);
             
-            alert('✅ Konfigurasi berhasil diterapkan!');
-        });
+            // Reload iframe
+            iframe.src = iframe.src;
+            
+            alert('Form updated successfully!');
+        }
         
-        // Update code snippets with new configuration
-        function updateCodeSnippets(url, title, bgColor, transparent) {
+        // Update code snippets with new URL
+        function updateCodeSnippets(url) {
             // Update full code
-            const fullCode = document.querySelector('#embed-code code');
+            const fullCode = document.getElementById('full-code');
             let newFullCode = `<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${title}</title>
+    <title>Contact Form</title>
     <script async src="https://tally.so/widgets/embed.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            background: ${bgColor};
+            background: #f8fafc;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-        
-        .form-wrapper {
+        .form-container {
             width: 100%;
-            height: 100vh;
             max-width: 800px;
-            margin: 0 auto;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            height: 90vh;
+            background: white;
             border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             overflow: hidden;
         }
-        
         iframe {
             width: 100%;
             height: 100%;
             border: none;
-            display: block;
         }
     </style>
 </head>
 <body>
-    <div class="form-wrapper">
+    <div class="form-container">
         <iframe 
-            data-tally-src="${url}?transparentBackground=${transparent}" 
-            width="100%" 
-            height="100%" 
-            frameborder="0" 
-            marginheight="0" 
-            marginwidth="0" 
-            title="${title}">
+            data-tally-src="${url}"
+            title="Contact Form">
         </iframe>
     </div>
 </body>
@@ -596,12 +504,12 @@
             fullCode.textContent = newFullCode;
             
             // Update minimal code
-            const minimalCode = document.querySelector('#minimal-code code');
+            const minimalCode = document.getElementById('minimal-code');
             let newMinimalCode = `<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${title}</title>
+    <title>Contact Form</title>
     <script async src="https://tally.so/widgets/embed.js"></script>
     <style>
         html, body { margin: 0; height: 100%; overflow: hidden; }
@@ -610,24 +518,13 @@
 </head>
 <body>
     <iframe 
-        data-tally-src="${url}?transparentBackground=${transparent}"
-        width="100%" 
-        height="100%" 
-        frameborder="0" 
-        title="${title}">
+        data-tally-src="${url}"
+        title="Contact Form">
     </iframe>
 </body>
 </html>`;
             
             minimalCode.textContent = newMinimalCode;
-        }
-        
-        // Load Tally embed script dynamically
-        if (!document.querySelector('script[src="https://tally.so/widgets/embed.js"]')) {
-            const script = document.createElement('script');
-            script.src = 'https://tally.so/widgets/embed.js';
-            script.async = true;
-            document.head.appendChild(script);
         }
     </script>
 </body>
