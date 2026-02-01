@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html webkus-version="3.2" lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[$ .Website.Name $]</title>
+  <meta name="description" content="[$ .Website.Description $]" />
+  <meta property="og:image" content="[$ .Website.Logo $]" />
+  <link rel="icon" href="[$ .Website.Logo $]" />
+  <!-- Silakan ganti url Bootstrap CSS jika diperlukan -->
+  <link rel="stylesheet" href="[$ .Template.BootstrapCSS $]">
+  <style>
+    body {
+      padding-right: 0 !important;
+    }
+
+    @media (min-width: 992px) {
+      .container {
+        max-width: 960px;
+      }
+    }
+
+    main {
+      min-height: calc(-38px + 100vh);
+      padding-top: 80px;
+    }
+
+    h1,
+    .h1 {
+      font-size: 27.625px;
+    }
+
+    h5,
+    .h5 {
+      font-size: 20px;
+    }
+
+    #topnav-action .btn {
+      line-height: 0px;
+    }
+
+    .close-product {
+      position: absolute;
+      right: 0;
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+
+    .cart-item-photo,
+    .order-item-photo {
+      width: 50px;
+      height: 50px;
+    }
+
+    .contact-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    #site-logo {
+      width: 70px;
+      height: 70px;
+    }
+
+    #site-description {
+      white-space: pre-line;
+    }
+
+    #showing-product-page {
+      max-height: calc(100vh - 127px);
+      overflow-y: auto;
+    }
+
+    #showing-product-photo {
+      width: 300px;
+      height: 300px;
+    }
+
+    #showing-product-description {
+      white-space: pre-line;
+    }
+
+    .order-item-photo {
+      width: 50px;
+      height: 50px;
+    }
+
+    .order-item-note {
+      white-space: pre-line;
+    }
+
+    #qris-img {
+      width: 300px;
+      height: 300px;
+    }
+
+    #splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+    }
+    /*
+    Silakan tambahkan CSS tambahan di bawah ini.
+    Setelah selesai, simpan kode CSSnya di Extended CSS pada Pengaturan Template.
+    */
+    /* [$ .Template.ExtendedCSS $] */
+    
+
+  </style>
+</head>
+
+<body class="bg-body-secondary">
+  <div id="splash-screen" class="bg-body">&nbsp;</div>
+  <nav id="topnav" class="navbar container bg-body border-bottom fixed-top px-3 px-lg-4">
+    <a class="navbar-brand" href="/">[$ .Website.Name $]</a>
+    <div id="topnav-action" class="ms-auto">
+      <button class="btn btn-outline-secondary me-2" id="theme-toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-fill"
+          viewBox="0 0 16 16">
+          <path
+            d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278" />
+        </svg>
+      </button>
+      <a href="/?cart=1" class="btn btn-secondary" id="cart-btn">
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart"
+            viewBox="0 0 16 16">
+            <path
+              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+          </svg>
+        </span>
+        <span id="cart-count" class="small">0</span>
+      </a>
+    </div>
+  </nav>
+  <main id="app" class="container bg-body-tertiary pb-4 px-3 px-lg-4">
+    <!-- HOME SECTION BEGIN -->
+    <section id="home" x-data="home" x-show="show" class="d-none">
+      <div class="card mb-4" id="hero">
+        <div class="card-body text-center py-4">
+          <img id="site-logo" src="[$ .Website.Logo $]" class="rounded-circle mb-2" alt="logo">
+          <h1 id="site-name" class="mb-3">[$ .Website.Name $]</h1>
+          <p id="site-description">[$ .Website.Description $]</p>
+          <div id="contact-wrapper" x-data="contact" class="d-flex justify-content-center gap-2">
+            <template x-for="c in urls">
+              <a x-show="c" :href="c" target="_blank" rel="noopener noreferrer"
+                class="contact-btn btn bg-body-tertiary border p-2 pt-0 pb-1">
+                <img class="contact-icon" :src="getIcon(c)" alt="-">
+              </a>
+            </template>
+          </div>
+        </div>
+      </div>
+      <div id="products-wrapper">
+        <div id="products-header" class="d-flex mb-3">
+          <h2 class="mt-1 h5">Produk</h2>
+          <div id="products-action" class="ms-auto">
+            <input class="form-control form-control-sm" type="search" x-model="inputSearch" placeholder="Cari..">
+          </div>
+        </div>
+        <div x-show="isFetching" id="product-loading" class="p-3 text-center">
+          <div class="spinner-grow" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <div x-show="!isFetching" id="products-list" class="row g-3 mb-4">
+          <div x-show="filteredProducts.length == 0" class="col-12">
+            <div id="product-not-found" class="text-center card p-3 mb-4">
+              <p class="mb-0" x-text="!inputSearch ? 'Tidak ada produk' : 'Tidak ditemukan'"></p>
+            </div>
+          </div>
+          <template x-for="product in filteredProducts">
+            <div class="product-item-wrapper col-6 col-md-4 col-lg-3">
+              <a :href="`?product=${product.id}`" @click="showProduct(product.id)"
+                class="product-item card text-decoration-none list-group-item-action">
+                <img class="product-item-photo card-img-top" :src="product.photo" alt="photo">
+                <div class="card-body">
+                  <div class="product-item-name mb-2" x-text="product.name"></div>
+                  <div class="d-flex">
+                    <div class="product-item-price">
+                      <del x-show="product.discount > 0" class="text-muted small"
+                        x-text="formatRp(product.price)"></del>
+                      <span class="fw-bold small" x-text="formatRp(product.price - product.discount)"></span>
+                    </div>
+                    <div class="product-item-stock ms-auto">
+                      <span x-show="product.unique_stock && product.available_stock >= 1" class="float-end small">Stok:
+                        <span x-text="product.available_stock"></span></span>
+                      <span x-show="product.available_stock < 1" class="empty-stock small text-danger">Habis</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </template>
+        </div>
+      </div>
+      <template x-if="testimonials.length > 0">
+        <div id="testimonials-wrapper">
+          <h5 class="mb-3">Testimoni</h5>
+          <template x-for="testimony in testimonials">
+            <div class="testimonial-item card p-3 mb-2">
+              <p class="testimonial-message mb-1">
+                &quot;<span x-text="testimony.message"></span>&quot;
+              </p>
+              <p class="testimonial-sender mb-0 small">
+                <span>&mdash; </span>
+                <span x-text="testimony.name"></span>
+              </p>
+            </div>
+          </template>
+        </div>
+      </template>
+      <button data-bs-toggle="modal" data-bs-target="#showing-product" class="d-none" id="showing-product-btn"></button>
+      <div class="modal fade" tabindex="-1" id="showing-product">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body" id="showing-product-page">
+              <div class="text-center pb-3 mb-3 border-bottom">
+                <img id="showing-product-photo" :src="showingProduct.photo" alt="photo">
+              </div>
+              <h5 id="showing-product-name" class="mb-0" x-text="showingProduct.name"></h5>
+              <div class="d-flex mb-2 mt-3">
+                <div id="showing-product-price">
+                  <del x-show="showingProduct.discount > 0" class="text-muted"
+                    x-text="formatRp(showingProduct.price)"></del>
+                  <span class="fw-bold text-primary"
+                    x-text="formatRp(showingProduct.price - showingProduct.discount)"></span>
+                </div>
+                <div id="showing-product-stock" x-show="showingProduct.unique_stock && showingProduct.available_stock >= 1"
+                  class="small ms-auto">
+                  Stok: <span x-text="showingProduct.available_stock"></span>
+                </div>
+              </div>
+              <div id="showing-product-description" x-html="linkify(showingProduct.description)" class="mb-3"></div>
+              <div id="showing-product-url" class="input-group input-group-sm">
+                <input class="form-control bg-body-tertiary" :value="productURL" readonly>
+                <button class="btn bg-body-tertiary border" @click="copyBtn">Salin URL</button>
+              </div>
+            </div>
+            <button type="button" class="btn-close close-product" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div id="showing-product-empty" x-show="showingProduct.available_stock < 1" class="modal-body">
+              <p class="text-danger text-center mb-0">Stok Habis</p>
+            </div>
+            <div id="showing-product-buy" x-show="showingProduct.available_stock >= 1" class="modal-body">
+              <button type="button" class="btn btn-primary w-100" :disabled="isSending" @click="addToCart()">
+                Beli Sekarang
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="social-proof-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <strong class="me-auto">Pesanan berhasil!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">
+            <strong x-text="socialProofShowing.name"></strong>
+            <span>baru membeli</span>
+            <a :href="'/?product='+socialProofShowing.product_id">
+              <span x-text="socialProofShowing.description"></span>
+            </a>
+            <br>
+            <small class="text-body-secondary">beberapa waktu lalu</small>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- HOME SECTION END -->
+    <!-- CART SECTION BEGIN -->
+    <section id="cart" x-data="cart" x-show="show" class="d-none">
+      <div id="cart-header" class="d-flex mb-3">
+        <h5 class="">Keranjang</h5>
+        <div class="ms-auto">
+          <a href="/" class="btn btn-sm bg-body border">&larr; Beranda</a>
+        </div>
+      </div>
+      <div x-show="isFetching" id="cart-loading" class="p-3 text-center">
+        <div class="spinner-grow" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <div x-show="!isFetching" id="cart-wrapper" class="row g-3">
+        <div x-show="carts.length == 0" class="col-12">
+          <div id="cart-empty" class="card text-center p-3">
+            Keranjang masih kosong
+          </div>
+        </div>
+        <div x-show="carts.length > 0" id="cart-list" class="col-md-7">
+          <template x-for="c,i in carts">
+            <div class="cart-list-item card p-3 mb-2">
+              <div class="d-flex">
+                <img class="cart-item-photo" :src="c.product.photo" alt="photo">
+                <div class="ms-2 w-100">
+                  <p class="cart-item-name mb-0">
+                    <a :href="`/?product=${c.product.id}`" x-text="c.product.name" class="text-reset"></a>
+                  </p>
+                  <div class="d-flex">
+                    <div class="cart-item-price">
+                      <del x-show="c.product.discount > 0" class="text-muted small"
+                        x-text="formatRp(c.product.price)"></del>
+                      <span class="fw-bold small" x-text="formatRp(c.product.price - c.product.discount)"></span>
+                    </div>
+                    <div class="cart-item-actions ms-auto">
+                      <div class="input-group input-group-sm">
+                        <button class="cart-item-remove btn btn-sm bg-body-tertiary text-danger border"
+                        @click="removeBtn(c.id)" :disabled="isSending">-</button>
+                        <span class="input-group-text"x-text="c.quantity"></span>
+                        <button class="cart-item-add btn btn-sm bg-body-tertiary text-success border"
+                        @click="addBtn(c.product.id)" :disabled="isSending">+</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cart-item-note">
+                <textarea class="form-control form-control-sm mt-2 bg-body-tertiary" placeholder="Catatan"
+                  x-model="carts[i].message" @change="updateMessage(i)"></textarea>
+              </div>
+            </div>
+          </template>
+          <div class="card flex-row p-3 small">
+            <b>Total:</b>
+            <b x-text="formatRp(total)" class="ms-auto"></b>
+          </div>
+        </div>
+        <div x-show="carts.length > 0" id="cart-checkout" class="col-md-5 mb-3">
+          <div id="cart-checkout-form" class="card mb-2">
+            <div class="card-body">
+              <div id="cart-checkout-email" class="mb-2">
+                <label for="" class="small text-muted mb-1">Email (file akan dikirim ke email)</label>
+                <input type="email" class="form-control bg-body-tertiary" x-model="form.email" placeholder="" />
+              </div>
+              <div id="cart-checkout-name" class="mb-2">
+                <label for="" class="small text-muted mb-1">Nama</label>
+                <input type="text" class="form-control bg-body-tertiary" x-model="form.name" />
+              </div>
+              <div id="cart-checkout-phone" class="mb-3">
+                <label for="" class="small text-muted mb-1">No. Telp (opsional)</label>
+                <input type="text" class="form-control bg-body-tertiary" x-model="form.phone" />
+              </div>
+              <button id="cart-checkout-btn" class="btn btn-primary w-100" @click="checkoutBtn"
+                :disabled="!isValid || isSending">Checkout</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- CART SECTION END -->
+    <!-- ORDER SECTION BEGIN -->
+    <section id="order" x-data="order" x-show="show" class="d-none">
+      <div id="order-header" class="d-flex mb-3">
+        <h5 class="" x-text="'Pesanan #'+orderId"></h5>
+        <div class="ms-auto">
+          <a href="/" class="btn btn-sm bg-body border">&larr; Beranda</a>
+        </div>
+      </div>
+      <div x-show="isFetching" id="order-loading" class="p-3 text-center">
+        <div class="spinner-grow" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <template x-if="!isFetching && error">
+        <div id="order-not-found" class="card mb-3">
+          <div class="card-body text-center text-danger">
+            Pesanan tidak ditemukan
+          </div>
+        </div>
+      </template>
+      <template x-if="!isFetching &&!error">
+        <div id="order-wrapper">
+          <div class="row g-3">
+            <div id="order-list" class="col-md-7">
+              <template x-for="item in order.items">
+                <div class="card p-3 mb-2">
+                  <div class="d-flex">
+                    <img class="order-item-photo" :src="item.photo" alt="photo">
+                    <div class="ms-2 w-100">
+                      <p class="mb-0">
+                        <a :href="`?product=${item.product_id}`" class="text-reset" x-text="item.product_name"></a>
+                      </p>
+                      <div class="d-flex">
+                        <div class="order-item-price">
+                          <del x-show="item.discount > 0" class="text-muted small" x-text="formatRp(item.price)"></del>
+                          <span class="fw-bold small" x-text="formatRp(item.price - item.discount)"></span>
+                        </div>
+                        <div class="order-item-qty ms-auto">
+                          <span class="ms-2 small">x <span x-text="item.quantity"></span></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="order-item-note small p-2 bg-body-tertiary border rounded mt-2"
+                    x-text="item.message || '-'">
+                  </div>
+                </div>
+              </template>
+              <div class="card flex-row p-3 small">
+                <b>Total:</b>
+                <b x-text="formatRp(order.price)" class="ms-auto"></b>
+              </div>
+            </div>
+            <div id="order-buyer" class="col-md-5">
+              <div class="card">
+                <div class="card-body">
+                  <div id="order-buyer-name" class="mb-2">
+                    <label for="" class="small text-muted mb-0">Nama</label>
+                    <p class="mb-0" x-text="order.name"></p>
+                  </div>
+                  <div id="order-buyer-email" class="mb-2">
+                    <label for="" class="small text-muted mb-0">Email</label>
+                    <p class="mb-0" x-text="order.email"></p>
+                  </div>
+                  <div id="order-buyer-phone" class="mb-0">
+                    <label for="" class="small text-muted mb-0">No. Telp</label>
+                    <p class="mb-0" x-text="order.phone || '-'"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="payment" class="mt-3 mb-2">
+            <div id="payment-header" class="d-flex mb-3">
+              <h5 class="mt-2">Pembayaran</h5>
+            </div>
+            <template x-if="order.status == 'pending'">
+              <div class="accordion mb-3" id="accordion-payment">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#qris-area"
+                      aria-expanded="true" aria-controls="qris-area">
+                      QRIS (+<span x-text="formatRp(order.fee)"></span>)
+                    </button>
+                  </h2>
+                  <div id="qris-area" class="accordion-collapse collapse show" data-bs-parent="#accordion-payment">
+                    <div class="accordion-body text-center">
+                      <p class="mb-3">
+                        Scan QRIS dengan e-Wallet atau Mobile Banking Anda
+                      </p>
+                      <p class="mb-3">
+                        <a :href="order.qr_img_data" id="qris-link" target="_blank"
+                          :download="`${order.id}.png`" rel="noopener noreferrer">
+                          <img id="qris-img" :src="order.qr_img_data" alt="QRIS"
+                            class="border">
+                        </a>
+                      </p>
+                      <p class="mb-0">
+                        <b>Total: <span x-text="formatRp(order.total_payment)"></span></b>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div x-show="order.va_fee == 0" class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#va-area" aria-expanded="false" aria-controls="va-area">
+                      Transfer Bank
+                    </button>
+                  </h2>
+                  <div id="va-area" class="accordion-collapse collapse" data-bs-parent="#accordion-payment">
+                    <div class="accordion-body">
+                      Transfer bank tidak tersedia karena total pembayaran kurang dari Rp 10.000
+                    </div>
+                  </div>
+                </div>
+                <div x-show="order.va_fee > 0" class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#va-area" aria-expanded="false" aria-controls="va-area">
+                      Transfer Bank (+<span x-text="formatRp(order.va_fee)"></span>)
+                    </button>
+                  </h2>
+                  <div id="va-area" class="accordion-collapse collapse" data-bs-parent="#accordion-payment">
+                    <div class="accordion-body">
+                      <p class="mb-3 text-center">Dapat ditransfer dari semua Bank/e-Wallet</p>
+                      <div class="mb-3">
+                        <p class="mb-1 small">Bank Tujuan</p>
+                        <input type="text" class="form-control bg-body-tertiary fw-bold" :value="order.va_provider"
+                          readonly>
+                      </div>
+                      <div class="mb-3">
+                        <p class="mb-1 small">No. Rekening</p>
+                        <div class="input-group">
+                          <input type="text" class="form-control bg-body-tertiary fw-bold" :value="(order.va_number)"
+                            readonly>
+                          <button class="btn bg-body-tertiary border" @click="copyVa">Salin</button>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <p class="mb-1 small">Nominal</p>
+                        <input type="text" class="form-control bg-body-tertiary fw-bold"
+                          :value="formatRp(order.va_total_payment)" readonly>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+            <div x-show="order.status == 'pending'" class="card p-3 text-center">
+              <p class="text-danger mb-2">
+                Bayar sebelum <span x-text="formatDateTime(order.expires_at)"></span>
+              </p>
+              <div>
+                <a href="javascript:location.reload()" class="btn btn-secondary btn-sm ms-1">Cek Status</a>
+              </div>
+            </div>
+            <template x-if="order.status == 'completed'">
+              <div class="card p-3 text-center text-success">
+                <p class="mb-0">Pesanan Anda telah selesai</p>
+                <p class="mb-0 small">Silahkan cek email Anda</p>
+              </div>
+            </template>
+            <template x-if="order.status == 'canceled'">
+              <div x-show="order.status == 'canceled'" class="card p-3 text-center text-danger">
+                <p class="mb-0">Pesanan Anda telah kadaluwarsa atau dibatalkan</p>
+              </div>
+            </template>
+          </div>
+        </div>
+      </template>
+    </section>
+    <!-- ORDER SECTION END -->
+
+    <!--
+    Silakan tambahkan HTML tambahan di bawah ini.
+    Setelah selesai, simpan kode HTMLnya di Extended HTML pada Pengaturan Template.
+    -->
+    [$ .Template.ExtendedHTML $]
+
+  </main>
+  <footer class="container text-center bg-body border-top p-2 small text-muted">
+    &copy; [$ .Website.Name $]
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/englishextra/qrjs2@latest/js/qrjs2.min.js"></script>
+  <script>
+    const html = document.documentElement;
+    const toggle = document.getElementById('theme-toggle');
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      html.setAttribute('data-bs-theme', savedTheme);
+    }
+
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-bs-theme') || 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+
+      html.setAttribute('data-bs-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const modalEl = document.getElementById("showing-product");
+      const modal = new bootstrap.Modal(modalEl);
+
+      modalEl.addEventListener("shown.bs.modal", function () {
+        history.pushState({ modalOpen: true }, "");
+      });
+
+      window.addEventListener("popstate", function (event) {
+        if (modalEl.classList.contains("show")) {
+          modal.hide();
+        }
+      });
+
+      modalEl.addEventListener("hidden.bs.modal", function () {
+        if (history.state && history.state.modalOpen) {
+          history.back();
+        }
+      });
+    });
+  </script>
+  <script>
+    const API_URL = location.origin;
+    const qs = new URLSearchParams(window.location.search)
+    const productId = qs.get('product')
+    const orderId = qs.get('order')
+    const isCartPage = qs.get('cart')
+    if (orderId || isCartPage) {
+      document.getElementById('hero').classList.add('d-none')
+    }
+
+    const contactURLs = '[$ .ContactURLs $]'
+    const contact = {
+      urls: contactURLs.split(','),
+      getIcon(u) {
+        let host = ''
+        try {
+          const url = new URL(u);
+          host = url.host
+        } catch (e) { }
+        return 'https://icon.horse/icon/' + host
+      }
+    }
+
+    function formatRp(int) {
+      return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0,
+      }).format(int)
+    }
+    function linkify(text) {
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+      return text ? text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener">$1</a>') : '';
+    }
+
+    const home = {
+      show: !Boolean(orderId || isCartPage),
+      init() {
+        if (!this.show) return
+        document.getElementById('home').classList.toggle('d-none')
+        this.getProducts()
+      },
+      products: [],
+      inputSearch: '',
+      get filteredProducts() {
+        if (!this.inputSearch) return this.products
+        return this.products.filter(v => {
+          return v.name.toLowerCase().includes(this.inputSearch.toLowerCase())
+        })
+      },
+      testimonials: [],
+      socialProofs: [],
+      localId: localStorage.local_id || '-',
+      showTesti: false,
+      showingProduct: {},
+      get productURL() {
+        return location.origin + '/?product=' + this.showingProduct.id
+      },
+      form: {
+        product_id: '',
+        message: ''
+      },
+      socialProofShowingIndex: 0,
+      get socialProofShowing() {
+        return this.socialProofs[this.socialProofShowingIndex] || {}
+      },
+      isSending: false,
+      isFetching: true,
+      getProducts() {
+        const self = this
+        self.isFetching = true
+        fetch(API_URL + '/api/get-data/' + self.localId).then(res => res.json()).then(res => {
+          self.products = res.products
+          self.testimonials = res.testimonials
+          self.socialProofs = res.social_proofs
+          document.getElementById('cart-count').innerText = res.cart_count
+          if (self.localId == '' || self.localId == '-') {
+            localStorage.setItem('local_id', res.local_id || '-')
+            self.localId = res.local_id || '-'
+          }
+          self.parseQueryParams()
+          if (self.socialProofs.length > 0) {
+            self.showToast()
+          }
+          self.isFetching = false
+        })
+      },
+      parseQueryParams() {
+        if (productId) {
+          this.showProduct(productId)
+        }
+      },
+      showProduct(id) {
+        event && event.preventDefault()
+        const p = this.products.find(p => p.id == id)
+        this.showingProduct = p
+        document.getElementById('showing-product-btn').click()
+      },
+      copyBtn() {
+        navigator.clipboard.writeText(this.productURL)
+        const el = event.target
+        el.classList.toggle('text-success')
+        el.innerText = 'Tersalin'
+        setTimeout(() => {
+          el.classList.toggle('text-success')
+          el.innerText = 'Salin URL'
+        }, 1000)
+      },
+      addToCart() {
+        const self = this
+        self.form.product_id = self.showingProduct.id
+        self.isSending = true
+        fetch(API_URL + '/api/carts/' + self.localId, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.form)
+        }).then(res => res.json()).then(res => {
+          location.href = '?cart=1'
+        })
+        .catch(e => {
+          console.error(e)
+          self.isSending = false
+        })
+      },
+      showToast() {
+        const toastEl = document.getElementById('social-proof-toast')
+        const toast = new bootstrap.Toast(toastEl)
+        setTimeout(() => {
+          toast.show()
+        }, 5_000);
+        setInterval(() => {
+          this.socialProofShowingIndex = (this.socialProofShowingIndex + 1) % this.socialProofs.length
+          toast.show()
+        }, 15_000)
+      }
+    }
+
+    const cart = {
+      show: isCartPage,
+      init() {
+        if (!this.show) return
+        document.getElementById('cart').classList.toggle('d-none')
+        this.getCarts()
+      },
+      carts: [],
+      form: {
+        name: localStorage.order_name || '',
+        email: localStorage.order_email || '',
+        phone: localStorage.order_phone || '',
+      },
+      isSending: false,
+      get isValid() {
+        return this.form.name && this.form.email
+      },
+      get total() {
+        return this.carts.reduce((acc, v) => {
+          return acc + ((v.product.price - v.product.discount) * v.quantity)
+        }, 0)
+      },
+      localId: localStorage.local_id || '-',
+      isFetching: true,
+      getCarts() {
+        const self = this
+        self.isFetching = true
+        fetch(API_URL + '/api/carts/' + self.localId).then(res => res.json()).then(res => {
+          self.carts = res.carts
+          document.getElementById('cart-count').innerText = res.carts.length
+          self.isFetching = false
+        })
+      },
+      updateMessage(i) {
+        const c = this.carts[i]
+        const self = this
+        self.isSending = true
+        fetch(API_URL + '/api/carts/' + self.localId + '/' + c.id, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: c.message
+          })
+        }).then(res => res.json()).then(res => {
+          self.isSending = false
+        })
+          .catch(e => {
+            console.error(e)
+            self.isSending = false
+          })
+      },
+      removeBtn(id) {
+        const self = this
+        self.isSending = true
+        fetch(API_URL + '/api/carts/' + self.localId + '/' + id, {
+          method: 'DELETE',
+        }).then(res => res.json()).then(res => {
+          if (res.message) {
+            alert(res.message)
+            self.isSending = false
+            return
+          }
+          location.reload()
+        })
+          .catch(e => {
+            console.error(e)
+            self.isSending = false
+          })
+      },
+      addBtn(id) {
+        const self = this
+        self.isSending = true
+        fetch(API_URL + '/api/carts/' + self.localId, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ product_id: id })
+        }).then(res => res.json()).then(res => {
+          if (res.message) {
+            alert(res.message)
+            self.isSending = false
+            return
+          }
+          location.reload()
+        })
+          .catch(e => {
+            console.error(e)
+            self.isSending = false
+          })
+      },
+      checkoutBtn() {
+        const self = this
+        self.isSending = true
+        fetch(API_URL + '/api/checkout/' + self.localId, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.form)
+        }).then(res => res.json()).then(res => {
+          if (res.message) {
+            alert(res.message)
+            self.isSending = false
+            return
+          }
+          localStorage.setItem('order_name', self.form.name)
+          localStorage.setItem('order_email', self.form.email)
+          localStorage.setItem('order_phone', self.form.phone)
+          location.href = '/?order=' + res.order.id
+        })
+          .catch(e => {
+            console.error(e)
+            self.isSending = false
+          })
+      }
+    }
+
+    const order = {
+      show: Boolean(orderId),
+      init() {
+        if (!this.show) return
+        document.getElementById('order').classList.toggle('d-none')
+        this.getOrder()
+      },
+      order: {},
+      localId: localStorage.local_id || '-',
+      error: '',
+      via: 'qris',
+      isSending: false,
+      get product() {
+        return this.order.product || {}
+      },
+      get fee() {
+        if (this.via == 'bank') {
+          return this.order.va_fee
+        }
+        return this.order.fee
+      },
+      get totalPayment() {
+        if (this.via == 'bank') {
+          return this.order.va_total_payment
+        }
+        return this.order.total_payment
+      },
+      isFetching: true,
+      getOrder() {
+        const self = this
+        self.isFetching = true
+        fetch(API_URL + '/api/orders/' + orderId + '?local_id=' + this.localId).then(res => res.json()).then(res => {
+          document.getElementById('cart-count').innerText = res.cart_count || ''
+          if (!res.order) {
+            self.error = 'Pesanan tidak ditemukan'
+            return
+          }
+          self.order = res.order
+          self.isFetching = false
+          self.showQR()
+        }).catch(e => {
+          console.log(e)
+          self.error = 'Terjadi kesalahan'
+          self.isFetching = false
+        })
+      },
+      formatDateTime(date) {
+        if (!date) return '-'
+        return new Intl.DateTimeFormat('id-ID', {
+          dateStyle: 'medium',
+          timeStyle: 'short',
+        }).format(new Date(date))
+      },
+      copyVa() {
+        const el = event.target
+        navigator.clipboard.writeText(this.order.va_number)
+        el.classList.toggle('text-success')
+        el.innerHTML = '&check; Tersalin'
+        setTimeout(() => {
+          el.classList.toggle('text-success')
+          el.innerHTML = 'Salin'
+        }, 1000)
+      },
+      showQR() {
+        const self = this
+        var qrPng = QRCode.generatePNG(this.order.qr_string, {
+          ecclevel: "M",
+          format: "html",
+          margin: 2,
+          modulesize: 8
+        });
+        self.order.qr_img_data = qrPng
+      }
+    }
+
+    window.showImmediately = true
+
+    // Silakan tambahkan script tambahan di daerah sini.
+    // Setelah selesai, simpan script tersebut di Extended JS pada Pengaturan Template.
+
+    /* [$ .Template.ExtendedJS $] */
+
+
+    document.addEventListener('alpine:init', () => {
+      if (window.showImmediately) {
+        document.getElementById('splash-screen').style.display = 'none'
+      }
+    })
+
+  </script>
+</body>
+</html>
